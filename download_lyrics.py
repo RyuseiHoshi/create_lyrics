@@ -1,5 +1,5 @@
+from constant import ARTIST_NAME, FILE_NAME
 from musixmatch import Musixmatch
-from pprint import pprint
 import re
 import json
 import csv
@@ -19,8 +19,8 @@ def get_lyrics(track_id):
   lyrics = lyrics.replace('...*******ThisLyricsisNOTforCommercialuse*******', '')
   return lyrics
 
-def get_tracks_from_artist(artist_name):
-  res = musixmatch.track_search(q_artist=artist_name, page_size=1000, page=1, s_track_rating='desc', q_track='')
+def get_tracks_from_artist(artistname):
+  res = musixmatch.track_search(q_artist=artistname, page_size=1000, page=1, s_track_rating='desc', q_track='')
   track_list = res['message']['body']['track_list']
   tracks = [{
     'track_id': track['track']['track_id'],
@@ -29,18 +29,13 @@ def get_tracks_from_artist(artist_name):
     } for track in track_list]
   return tracks
 
-def download_lyrics_from_artist(artist_name, file_name):
-  tracks = get_tracks_from_artist(artist_name)
-  with open(file_name, 'w') as f:
+def download_lyrics_from_artist(artistname, filename):
+  tracks = get_tracks_from_artist(artistname)
+  with open(filename, 'w') as f:
     writer = csv.DictWriter(f, ['track_id', 'track_name', 'lyrics'])
     writer.writeheader()
     for track in tracks:
       writer.writerow(track)
 
-# print('artist name: ', end='')
-# artist_name = input()
-# print('file name: ', end='')
-# file_name = input()
-artist_name = 'Kenshi Yonezu'
-file_name = 'Kenshi-Yonezu-tracks.csv'
-download_lyrics_from_artist(artist_name, file_name)
+if __name__ == "__main__":
+  download_lyrics_from_artist(ARTIST_NAME, FILE_NAME)
