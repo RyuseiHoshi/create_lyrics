@@ -1,5 +1,5 @@
-def word2vowels(word):
-  word2vowel = {
+def phonetic2vowels(word):
+  kana2vowel = {
     'ア': 'a', 'イ': 'i', 'ウ': 'u', 'エ': 'e', 'オ': 'o',
     'カ': 'a', 'キ': 'i', 'ク': 'u', 'ケ': 'e', 'コ': 'o',
     'サ': 'a', 'シ': 'i', 'ス': 'u', 'セ': 'e', 'ソ': 'o',
@@ -27,7 +27,6 @@ def word2vowels(word):
   del_chars.reverse()
   for i in del_chars:
     word = word[:i] + word[i+1:]
-  print(word)
-  vowels = [word2vowel[char] for char in word]
+  vowels = [kana2vowel[char] for char in word if char in kana2vowel]
 
   return vowels
