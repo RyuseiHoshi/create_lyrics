@@ -1,0 +1,15 @@
+{
+  "name": "ai-create-lyrics",
+  "dockerComposeFile": "docker-compose.yml",
+  "extensions": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-toolsai.jupyter",
+    "editorconfig.editorconfig",
+    "donjayamanne.githistory",
+    "eamodio.gitlens"
+  ],
+  "service": "jupyter",
+  "workspaceFolder": "/ai-create-lyrics",
+  "shutdownAction": "stopCompose"
+}
