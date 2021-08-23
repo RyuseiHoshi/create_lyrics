@@ -1,4 +1,4 @@
-from constant import ARTIST_NAME, FILE_NAME
+from constant import ARTIST_NAME, TRACKS_FILE_NAME
 from musixmatch import Musixmatch
 import re
 import json
@@ -25,17 +25,18 @@ def get_tracks_from_artist(artistname):
   tracks = [{
     'track_id': track['track']['track_id'],
     'track_name': track['track']['track_name'],
+    'artist_name': track['track']['artist_name'],
     'lyrics': get_lyrics(track['track']['track_id'])
     } for track in track_list]
   return tracks
 
-def download_lyrics_from_artist(artistname, filename):
-  tracks = get_tracks_from_artist(artistname)
+def store_tracks_file(filename, tracks):
   with open(filename, 'w') as f:
-    writer = csv.DictWriter(f, ['track_id', 'track_name', 'lyrics'])
+    writer = csv.DictWriter(f, ['track_id', 'track_name', 'artist_name', 'lyrics'])
     writer.writeheader()
     for track in tracks:
       writer.writerow(track)
 
 if __name__ == "__main__":
-  download_lyrics_from_artist(ARTIST_NAME, FILE_NAME)
+  tracks = get_tracks_from_artist(ARTIST_NAME)
+  store_tracks_file(TRACKS_FILE_NAME, tracks)

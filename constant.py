@@ -1,3 +1,3 @@
 ARTIST_NAME = "Kenshi Yonezu"
-FILE_NAME = "Kenshi-Yonezu-tracks.csv"
+TRACKS_FILE_NAME = "Kenshi-Yonezu-tracks.csv"
 WAKATI_FILE_NAME = "Kensddhi-Yonezu-wakati.csv"

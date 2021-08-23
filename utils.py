@@ -1,4 +1,4 @@
-def phonetic2vowels(word):
+def phonetic2vowels(phonetic):
   kana2vowel = {
     'ア': 'a', 'イ': 'i', 'ウ': 'u', 'エ': 'e', 'オ': 'o',
     'カ': 'a', 'キ': 'i', 'ク': 'u', 'ケ': 'e', 'コ': 'o',
@@ -20,13 +20,16 @@ def phonetic2vowels(word):
 
   lowchar = ['ァ', 'ィ', 'ゥ', 'ェ', 'ォ', 'ャ', 'ュ', 'ョ']
 
-  word = word.replace('ン', '')
-  word = word.replace('ッ', '')
-  word = word.replace('ー', '')
-  del_chars = [i for i, char in enumerate(word[1:]) if char in lowchar]
+  phonetic = phonetic.replace('ン', '')
+  phonetic = phonetic.replace('ッ', '')
+  phonetic = phonetic.replace('ー', '')
+  del_chars = [i for i, char in enumerate(phonetic[1:]) if char in lowchar]
   del_chars.reverse()
   for i in del_chars:
-    word = word[:i] + word[i+1:]
-  vowels = [kana2vowel[char] for char in word if char in kana2vowel]
+    phonetic = phonetic[:i] + phonetic[i+1:]
+  vowels = [kana2vowel[char] if char in kana2vowel else '<NAN>' for char in phonetic]
 
   return vowels
+
+def phonetic2strvowels(phonetic):
+  return ''.join(phonetic2vowels(phonetic))
