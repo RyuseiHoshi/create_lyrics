@@ -17,14 +17,14 @@ def wakati_lyrics(seq_lst):
     surfaces += '<EOS>'
     vowels += '<EOS>'
     morphemes.append({
-      'surface': surfaces,
+      'lyrics': surfaces,
       'vowels': vowels
     })
   return morphemes
   
 def store_wakati_file(filename, morphemes):
   with open(filename, 'w') as f:
-    writer = csv.DictWriter(f, ['vowels', 'surface'])
+    writer = csv.DictWriter(f, ['vowels', 'lyrics'])
     writer.writeheader()
     for morpheme in morphemes:
       writer.writerow(morpheme)

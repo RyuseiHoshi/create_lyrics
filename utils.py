@@ -1,3 +1,7 @@
+import pandas as pd
+import tensorflow as tf
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
 def phonetic2vowels(phonetic):
   kana2vowel = {
     'ア': 'a', 'イ': 'i', 'ウ': 'u', 'エ': 'e', 'オ': 'o',
@@ -27,9 +31,30 @@ def phonetic2vowels(phonetic):
   del_chars.reverse()
   for i in del_chars:
     phonetic = phonetic[:i] + phonetic[i+1:]
-  vowels = [kana2vowel[char] if char in kana2vowel else '<NAN>' for char in phonetic]
+  vowels = [kana2vowel[char] if char in kana2vowel else '<UNK>' for char in phonetic]
 
   return vowels
 
 def phonetic2strvowels(phonetic):
   return ''.join(phonetic2vowels(phonetic))
+
+def load_dataset(filename):
+  df = pd.read_csv(filename)
+  df = df.dropna()
+  vowels_lst = list(df['vowels'])
+  lyrics_lst = list(df['lyrics'])
+  return vowels_lst, lyrics_lst
+
+def build_vocabulary(texts, num_words=None):
+  tokenizer = tf.keras.preprocessing.text.Tokenizer(
+    num_words=num_words, oov_token='<UNK>', filters=''
+  )
+  tokenizer.fit_on_texts(texts)
+  return tokenizer
+
+def create_dataset(vowels_texts, lyrics_texts, vowels_vocab, lyrics_vocab):
+  vowels_seqs = vowels_vocab.texts_to_sequences(vowels_texts)
+  lyrics_seqs = lyrics_vocab.texts_to_sequences(lyrics_texts)
+  vowels_seqs = pad_sequences(vowels_seqs, padding='post')
+  lyrics_seqs = pad_sequences(lyrics_seqs, padding='post')
+  return [vowels_seqs, lyrics_seqs[:, :-1]], lyrics_seqs[:, 1:]
