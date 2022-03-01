@@ -18,7 +18,7 @@ class BaseModel:
       return model
 
 class Encoder(BaseModel):
-  def __init__(self, input_dim, emb_dim=30, hid_dim=25, return_sequences=False):
+  def __init__(self, input_dim, emb_dim=300, hid_dim=256, return_sequences=False):
     self.input = Input(shape=(None,), name='encoder_input')
     self.embedding = Embedding(input_dim=input_dim,
                    output_dim=emb_dim,
@@ -40,7 +40,7 @@ class Encoder(BaseModel):
     return Model(inputs=self.input, outputs=[output, state])
 
 class Decoder(BaseModel):
-  def __init__(self, output_dim, emb_dim=30, hid_dim=25):
+  def __init__(self, output_dim, emb_dim=300, hid_dim=256):
     self.input = Input(shape=(None,), name='decoder_input')
     self.embedding = Embedding(input_dim=output_dim,
                    output_dim=emb_dim,

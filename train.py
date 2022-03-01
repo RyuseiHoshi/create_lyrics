@@ -23,8 +23,8 @@ def main():
   lyrics_vocab = build_vocabulary(y_train, num_words)
   x_train, y_train = create_dataset(x_train, y_train, vowels_vocab, lyrics_vocab)
 
-  encoder = Encoder(num_words)
-  decoder = Decoder(num_words)
+  encoder = Encoder(num_words, return_sequences=True)
+  decoder = AttentionDecoder(num_words)
   seq2seq = Seq2seq(encoder, decoder)
   model = seq2seq.build()
   model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
@@ -44,9 +44,9 @@ def main():
 
   encoder = Encoder.load(enc_arch, model_path)
   decoder = Decoder.load(dec_arch, model_path)
-  api = InferenceAPI(encoder, decoder, vowels_vocab, lyrics_vocab)
+  api = InferenceAPIforAttention(encoder, decoder, vowels_vocab, lyrics_vocab)
 
-  texts = sorted(set(lyrics_lst[:50]), key=len)
+  texts = sorted(set(vowels_lst[:50]), key=len)
   for text in texts:
     decoded = api.predict(text=text)
     print('Vowels : {}'.format(text))
