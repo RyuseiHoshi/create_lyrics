@@ -1,10 +1,12 @@
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow.keras.utils import plot_model
 import numpy as np
+import matplotlib.pyplot as plt
 from inference import InferenceAPI, InferenceAPIforAttention
 from models import Seq2seq, Encoder, Decoder, AttentionDecoder
 from utils import load_dataset, build_vocabulary, create_dataset
-from constant import WAKATI_FILE_NAME
+from constant import ACC_HISTORY_FILE_NAME, LOSS_HISTORY_FILE_NAME, MODEL_IMAGE_FILE_NAME, WAKATI_FILE_NAME
 
 def main():
   batch_size = 32
@@ -33,14 +35,30 @@ def main():
     EarlyStopping(patience=3),
     ModelCheckpoint(model_path, save_best_only=True, save_weights_only=True)
   ]
-  model.fit(x=x_train,
-        y=y_train,
-        batch_size=batch_size,
-        epochs=epochs,
-        callbacks=callbacks,
-        validation_split=0.1)
+  history = model.fit(x=x_train,
+                  y=y_train,
+                  batch_size=batch_size,
+                  epochs=epochs,
+                  callbacks=callbacks,
+                  validation_split=0.1)
   encoder.save_as_json(enc_arch)
   decoder.save_as_json(dec_arch)
+
+  fig = plt.figure()
+  print(history)
+
+  # Plot loss values
+  plt.plot(history.history['loss'])
+  plt.plot(history.history['val_loss'])
+  plt.title('Model loss')
+  plt.ylabel('Loss')
+  plt.xlabel('Epoch')
+  plt.legend(['Train', 'Test'], loc='upper left')
+  plt.show()
+  fig.savefig(LOSS_HISTORY_FILE_NAME)
+
+  # Save model image
+  plot_model(model, to_file=MODEL_IMAGE_FILE_NAME)
 
   encoder = Encoder.load(enc_arch, model_path)
   decoder = Decoder.load(dec_arch, model_path)
