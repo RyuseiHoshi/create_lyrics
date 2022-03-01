@@ -10,6 +10,6 @@
     "eamodio.gitlens"
   ],
   "service": "jupyter",
-  "workspaceFolder": "/ai-create-lyrics",
+  "workspaceFolder": "/workdir",
   "shutdownAction": "stopCompose"
 }

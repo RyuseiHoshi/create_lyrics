@@ -8,8 +8,8 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - ../:/ai-create-lyrics
-    working_dir: /ai-create-lyrics
+      - ../:/workdir
+    working_dir: /workdir
     environment:
       - SHELL=/bin/bash
       - JUPYTER_ENABLE_LAB=yes

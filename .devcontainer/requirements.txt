@@ -1,0 +1,10 @@
+tensorflow
+scikit-learn
+keras
+numpy
+pandas
+matplotlib
+pydot
+graphviz
+janome
+pymusixmatch
