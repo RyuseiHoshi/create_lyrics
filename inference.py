@@ -15,7 +15,7 @@ class InferenceAPI: # 'InferenceAPI'という名前のクラスを定義して�
 
   def __init__(self, encoder_model, decoder_model, vowels_vocab, lyrics_vocab): # '__init__'メソッドは、クラスのコンストラクタを定義している。クラスのインスタンスが作成される際に呼び出され、属性の初期化を行う
                                                                                 # 'self'パラメータは、コンストラクタが呼び出されるインスタンス時代を自体を指す。つまり、このコンストラクタで初期化される属性は、インスタンスに関連づけられる
-    self.encoder_model = encoder_model
+    self.encoder_model = encoder_model # 与えられた'encoder_model'を代入している。これにより
     self.decoder_model = decoder_model
     self.vowels_vocab = vowels_vocab
     self.lyrics_vocab = lyrics_vocab
