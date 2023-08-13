@@ -1,19 +1,20 @@
 """
 Inference API.
 """
-import numpy as np
+import numpy as np # numPyライブラリをインポートしている。数値計算を効率的に行う為のライブラリ
 
-class InferenceAPI:
-  """A model API that generates output sequence.
+class InferenceAPI: # 'InferenceAPI'という名前のクラスを定義している。このクラスはモデルの推論APIを表現する
+  """A model API that generates output sequence. # クラスのドキュメンテーション文字列。クラスの目的や機能を概要を説明
 
-  Attributes:
-    encoder_model: Model.
-    decoder_model: Model.
-    vowels_vocab: source vowels's vocabulary.
-    lyrics_vocab: target lyrics's vocabulary.
+  Attributes: # 'encoder_model' 
+    encoder_model: Model. # 'encoder_model'という属性(メンバ変数)があり、ここでは'Model'クラスのインスタンスを格納することを示している。おそらく、モデルのエンコーダ部分に関連するもの
+    decoder_model: Model. # 'decoder_model'という属性(メンバ変数)があり、ここでは'Model'クラスのインスタンスを格納することを示している。おそらく、モデルのデコーダ部分に関連するもの
+    vowels_vocab: source vowels's vocabulary. # 'vowels_vocab'という属性(メンバ変数)があり、これはソースの母音(vowels)の語彙を表すもの
+    lyrics_vocab: target lyrics's vocabulary. # 'lyrics_vocab'という属性(メンバ変数)があり、これはターゲットの歌詞(lyrics)語彙を表すもの
   """
 
-  def __init__(self, encoder_model, decoder_model, vowels_vocab, lyrics_vocab):
+  def __init__(self, encoder_model, decoder_model, vowels_vocab, lyrics_vocab): # '__init__'メソッドは、クラスのコンストラクタを定義している。クラスのインスタンスが作成される際に呼び出され、属性の初期化を行う
+                                                                                # 'self'パラメータは、コンストラクタが呼び出されるインスタンス時代を自体を指す。つまり、このコンストラクタで初期化される属性は、インスタンスに関連づけられる
     self.encoder_model = encoder_model
     self.decoder_model = decoder_model
     self.vowels_vocab = vowels_vocab
